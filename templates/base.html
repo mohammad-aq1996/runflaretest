@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    {% block head %} {% endblock %}
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">
+    <link rel="stylesheet" href="">
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/npm.js' %}"></script>
+<style>
+    * {font-family: "B Nazanin"; font-size: x-large}
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+
+            <ul class="nav navbar-nav" style="margin-right: 200px">
+              <li class="active"><a href="/">خانه</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'todo_app:list' %}">لیست کارهای انجام نشده</a></li>
+                    <li><a href="{% url 'todo_app:competed_list' %}">لیست کارهای انجام شده</a></li>
+                    <li><a href="{% url 'todo_app:post' %}">افزودن</a></li>
+                {% endif %}
+
+            </ul>
+          <ul class="nav navbar-nav navbar-left" style="margin-left: 144px">
+              {% if user.is_authenticated %}
+                <li><a href="{% url 'account_app:password_change' %}">تغییر رمز عبور</a></li>
+                <li><a href="{% url 'account_app:logout' %}">خروج</a></li>
+              {% else %}
+                <li><a href="{% url 'account_app:login' %}">ورود</a></li>
+                <li><a href="{% url 'account_app:signup' %}">ثبت نام</a></li>
+            {% endif %}
+          </ul>
+      </div>
+    </nav>
+    {% block content %}
+
+    {% endblock %}
+</body>
+        <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
+		<script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
+</html>

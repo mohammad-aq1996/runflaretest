@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jalali_tags %}
+{% load bootstrap3 %}
+{% block title %} لیست کارها {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+        <h1 align="center"><b>لیست کار های شما</b></h1>
+
+            <h2 align="center"><b>لیست کارهای انجام{% if completed %}  شده: {% else %} نشده: {% endif %} {{ count }}</b></h2>
+        {% if todo_list %}
+
+            {% for todo in todo_list %}
+                <ul class="list-group">
+
+                    <li class="list-group-item">
+                        <a href="{% url 'todo_app:detail' todo.pk %}"
+                           class="btn btn-primary btn-lg btn-block {% if todo.important %}btn-danger{% endif %}"
+                           role="button" aria-pressed="true">
+                            <p><b>عنوان کار: {{ todo.title }}</b></p>
+                                <p>تاریخ ثبت: {{ todo.get_jalali_date|date:'Y/m/d' }}</p>
+                                <p>ساعت ثبت: {{ todo.created|time:'H:i' }}</p>
+                        </a>
+                    </li>
+
+                </ul>
+
+            {% endfor %}
+        {% endif %}
+
+            {% if page_obj %}
+                <div class="container text-center">
+                    <ul class="pagination">
+                        <li><a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}">«</a></li>
+
+                    {% for page in page_obj.paginator.page_range %}
+                        <li class="{% if page_obj.number == page %} active {% endif %}"><a href="?page={{ page }}">{{ page }}</a></li>
+                    {% endfor %}
+
+                        <li><a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}">»</a></li>
+
+                    </ul>
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+{% endblock %}

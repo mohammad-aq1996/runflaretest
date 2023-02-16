@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %} {{ todo.title }} {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+        <div class="text-center"><h2><b>جزییات یادآوری: {{ todo.title }}</b> </h2></div>
+
+            <table class="table">
+                <tbody>
+                  <tr>
+                    <th scope="row">عنوان</th>
+                    <td>{{ todo.title }}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">متن یادآوری</th>
+                    <td>{{ todo.content|safe }}</td>
+                  </tr>
+                <tr>
+                    <th scope="row">اهمیت</th>
+                    <td>{% if todo.important %} <em style="color: red">این یک کار مهم میباشد. </em>
+                        {% else %}<em style="color: blue"> این یک کار مهم نمیباشد </em>{% endif %}</td>
+                  </tr>
+                <tr>
+                    <th scope="row">زمان ایجاد یادآوری</th>
+                    <td>{{ todo.get_jalali_date|date:'Y/m/d--H:i' }}</td>
+                  </tr>
+                <tr>
+                    <th scope="row">زمان انجام کار</th>
+                    <td>{% if todo.completed %} {{ todo.get_jalali_date|date:'Y/m/d' }} {% else %} انجام نشده است. {% endif %}</td>
+                  </tr>
+                </tbody>
+              </table>
+                <div class="text-center">
+                    <a class="btn btn-primary btn-lg " href="{% url 'todo_app:edit' todo.id %}">ویرایش</a>
+                    <a class="btn btn-primary btn-lg active btn-danger center-block" href="{% url 'todo_app:delete' todo.id %}">حذف</a>
+                </div>
+        </div>
+
+    </div>
+
+{% endblock %}

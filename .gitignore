@@ -1,0 +1,6 @@
+db.sqlite3
+account_app/migrations
+todo_app/migrations
+/.cloud/
+.cloud/
+/.cloud

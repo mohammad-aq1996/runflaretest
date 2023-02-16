@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block title %} تایید حذف {% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <form method="post">
+                {% csrf_token %}
+                <p> آیا از حذف مورد انتخاب شده مطمئن هستید؟ </p>
+                <input class="btn btn-primary" type="submit" value="تایید">
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}
